@@ -1,74 +1,126 @@
-@extends('layouts.dashboard')
+@extends('layouts.admin.dashboard')
 
 @section('content')
-    <h1>Modifica fumetto</h1>
+    <h1>Edit a new Comics</h1>
 
-    <form class="form" action="{{ route('admin.comics.update', $comic) }}" method="post" enctype="multipart/form-data">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{route('admin.comics.update', ['comic'=>$comic->slug])}}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+
+        {{-- title --}}
         <div class="form-group">
-            <label for="title">Titolo del fumetto</label>
-            <input type="text" name="title" id="title" value="{{ $comic->title }}">
-            <small id="titleHelper" class="form-text text-muted">Titolo Comics</small>
+            <label for="title">Title</label>
+            <input class="form-control" type="text" name="title" id="title" value="{{$comic->title}}">
         </div>
         @error('title')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 
+        {{-- description --}}
         <div class="form-group">
-            <label for="description">Descrizione del fumetto</label>
-            <input type="text" name="description" id="description" value="{{ $comic->description }}">
-            <small id="descriptionHelper" class="form-text text-muted">Descrizione fumetto</small>
+            <label for="description">Description</label>
+            <textarea class="form-control" name="description" id="description" rows="10"> {{$comic->description}}</textarea>
         </div>
         @error('description')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 
+        {{-- cover --}}
         <div class="form-group">
-            <label for="price">Prezzo del fumetto</label>
-            <input type="text" name="price" id="price" value="{{ $comic->price }}">
-            <small id="priceHelper" class="form-text text-muted">Prezzo Comics</small>
-        </div>
-        @error('price')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-
-        <div class="form-group">
-            <label for="availability">Disponibilità del fumetto</label>
-            <select class="" name="availability" id="availability">
-                <option value=1>Si</option>
-                <option value=0>No</option>
-            </select>
-        </div>
-        @error('availability')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-
-        {{-- <div class="form-group">
-            <label for="slug">Slug</label>
-            <input type="text" name="slug" placeholder="scrivi qui lo slug" id="slug">
-        </div>
-        @error('slug')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror --}}
-
-        <div class="form-group">
-            <label for="cover">Cover Image</label>
-            <input type="file" class="form-control-file" name="cover" id="cover" placeholder="Add a cover image"
-                aria-describedby="coverImgHelper">
-            <small id="coverImgHelper" class="form-text text-muted">Add a cover image</small>
+          <label for="cover">Cover</label>
+          <input type="file" class="form-control-file" name="cover" id="cover" placeholder="Add a cover image" aria-describedby="coverHelper">
+          <small id="coverHelper" class="form-text text-muted">Add a cover image for the current post</small>
         </div>
         @error('cover')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 
+        {{-- jumbotron --}}
+        <div class="form-group">
+            <label for="jumbotron">Jumbotron</label>
+            <input type="file" class="form-control-file" name="jumbotron" id="jumbotron" placeholder="Add a jumbotron image" aria-describedby="jumbotronHelper">
+            <small id="jumbotronHelper" class="form-text text-muted">Add a jumbotron image for the current post</small>
+        </div>
+        @error('jumbotron')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
-        {{-- <div class="form-group">
-      <label for="cover">Inserisci L'immagine</label>
-      <input type="file" name="cover" id="cover">
-      <small id="coverHelper" class="form-text text-muted">Titolo Comics</small>
-    </div> --}}
+        {{-- Available --}}
+        <div class="form-group">
+            <label for="available">Available</label>
+            <select class="form-control" name="available" id="available">
+                <option value=1>Si</option>
+                <option value=0>No</option>
+            </select>
+        </div>
+        @error('available')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
-        <button class="btn btn-primary" type="submit" name="button">Invia</button>
+        {{-- US_price --}}
+        <div class="form-group">
+            <label for="US_price">U.S. Price</label>
+            <input class="form-control" type="text" name="US_price" id="US_price" value="{{$comic->US_price}}">
+        </div>
+        @error('US_price')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+
+        {{-- on_sale_date --}}
+        <div class="form-group">
+            <label for="on_sale_date">On Sale Date</label>
+            <input class="form-control" type="text" name="on_sale_date" id="on_sale_date" value="{{$comic->on_sale_date}}">
+        </div>
+        @error('on_sale_date')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+
+        {{-- volume_issue --}}
+        <div class="form-group">
+            <label for="volume_issue">Volume/Issue#</label>
+            <input class="form-control" type="text" name="volume_issue" id="volume_issue" value="{{$comic->volume_issue}}">
+        </div>
+        @error('volume_issue')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+
+        {{-- trim_size --}}
+        <div class="form-group">
+            <label for="trim_size">Trim size</label>
+            <input class="form-control" type="text" name="trim_size" id="trim_size" value="{{$comic->trim_size}}">
+        </div>
+        @error('trim_size')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+
+        {{-- page_count --}}
+        <div class="form-group">
+            <label for="page_count">Page count</label>
+            <input class="form-control" type="text" name="page_count" id="page_count" value="{{$comic->page_count}}">
+        </div>
+        @error('page_count')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+
+        {{-- rated --}}
+        <div class="form-group">
+            <label for="rated">Rated</label>
+            <input class="form-control" type="text" name="rated" id="rated" value="{{$comic->rated}}">
+        </div>
+        @error('trim_size')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCoverToComicsTable extends Migration
+class AddJumbotronToComicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddCoverToComicsTable extends Migration
     public function up()
     {
         Schema::table('comics', function (Blueprint $table) {
-            $table->string('cover')->after('slug')->nullable();
+            $table->string('jumbotron')->nullable()->after('cover');
         });
     }
 
@@ -26,7 +26,7 @@ class AddCoverToComicsTable extends Migration
     public function down()
     {
         Schema::table('comics', function (Blueprint $table) {
-            $table->dropColumn('cover');
+            $table->dropColumn('jumbotron');
         });
     }
 }

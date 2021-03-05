@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} Comics</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -17,13 +17,13 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    {{-- FontAwesome --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!--  Fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+        integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -33,6 +33,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <a class="navbar-brand" href="{{ route('comics.index') }}">Comics</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">
@@ -66,7 +67,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                                                document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -81,22 +82,25 @@
             </div>
         </nav>
 
-        <div class="container">
+        <div class="container py-4">
             <div class="row">
-                <div class="col-xs-12 col-md-3 col-lg-3">
+                {{-- lista --}}
+                <div class="col-xs-12 col-md-2 col-lg-2">
                     <ul class="list-unstyled">
-                        <li><a href="{{ route('admin.index') }}"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                        </li>
-                        <li><a href="{{ route('admin.comics.index') }}"> <i class="fas fa-book-open"></i> Comics</a>
-                        </li>
+                        <li><a href="{{ route('admin.index') }}"> <i class="fas fa-tachometer-alt fa-lg fa-fw"></i>
+                                Dashboard </a></li>
+                        <li><a href="{{ route('admin.comics.index') }}"> <i class="fas fa-book fa-lg fa-fw"></i>
+                                Comics </a></li>
+                        <li><a href="#"> <i class="fas fa-folder-open fa-lg fa-fw"></i> Series </a></li>
+                        <li><a href="#"> <i class="fas fa-tag fa-lg fa-fw"></i> Tags </a></li>
                     </ul>
                 </div>
-                <main class="col-xs-12 col-md-9 col-lg-9 py-4">
+                {{-- main --}}
+                <main class="col-xs-12 col-md-10 col-lg-10">
                     @yield('content')
                 </main>
             </div>
         </div>
-
     </div>
 </body>
 
